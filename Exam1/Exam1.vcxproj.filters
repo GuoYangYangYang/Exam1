@@ -27,6 +27,15 @@
     <ClInclude Include="CSV.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="exam.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="excel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="delete.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

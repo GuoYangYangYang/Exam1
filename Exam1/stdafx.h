@@ -9,7 +9,17 @@
 
 #include <stdio.h>
 #include <tchar.h>
-
+#include <fstream>
+#include <string>
+#include <iostream>
+#include <streambuf> 
+#include <iomanip>
+#include <stdlib.h>
+#include <string.h>
+#include <io.h>
+#include <direct.h>
+#include <errno.h>
+//#include <shellapi.h>
 
 
 // TODO:  在此处引用程序需要的其他头文件
