@@ -30,9 +30,6 @@
     <ClInclude Include="exam.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="excel.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="delete.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -42,6 +39,21 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Exam1.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="create.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="init.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="getallfiles.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="chooseexam.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="chooseexcel.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

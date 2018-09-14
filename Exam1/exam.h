@@ -1,17 +1,8 @@
 #pragma once
 #include "stdafx.h"
 
-class Exam
-{
-private:
-	char* school;
-	char* name;
-	char* grade;
-public:
-	Exam() 
-	{
-		school = "null";
-		name = "null";
-		grade = "null";
-	}
-};
+bool init();
+bool createDirectory(const std::string folder);
+void GetAllFiles(std::string path, vector<std::string>& files);
+string chooseExam();
+void chooseExcel(string);

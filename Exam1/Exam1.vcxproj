@@ -148,12 +148,16 @@
     <ClInclude Include="CSV.h" />
     <ClInclude Include="delete.h" />
     <ClInclude Include="exam.h" />
-    <ClInclude Include="excel.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="chooseexam.cpp" />
+    <ClCompile Include="chooseexcel.cpp" />
+    <ClCompile Include="create.cpp" />
     <ClCompile Include="Exam1.cpp" />
+    <ClCompile Include="getallfiles.cpp" />
+    <ClCompile Include="init.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
