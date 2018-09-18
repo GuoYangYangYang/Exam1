@@ -2,12 +2,11 @@
 //
 
 #include "stdafx.h"
-#include "CSV.h"
+//#include "CSV.h"
 #include "exam.h"
 
 #define APP_VERSION 1.1
 #define DEFAULT_SCHOOL "国华学校"
-
 
 int main()
 {
@@ -15,14 +14,18 @@ int main()
 
 	if (!init()) exit(0);
 
-	while (1)
+	
+
+
+	//while (1)
 	{
 		cout << "---------------------------------------------------------------------------------------------------" << endl;
 		string file = chooseExam();
 		chooseExcel(file);
 		cout << "---------------------------------------------------------------------------------------------------" << endl;
-	}
-	
+		//system("cls");
+	}/*
+	*/
 
 	/*
 	//定义文件输出流 
@@ -44,10 +47,10 @@ int main()
 	cout << readStr.c_str() << endl;
 	cout << readStr.length() << endl; 
 	
-	*/
-
-	/*
-	char filename[] = "E:\\14多科成绩表理科.CSV"; //文件名
+	
+	const char * filename = (folder + "\\理科总成绩.csv").c_str();
+	
+	//char filename[] = "E:\\14多科成绩表理科.CSV"; //文件名
 	Csv csv(filename);//元素显示测试
 		for (auto it1 = 0; it1 != csv.table.size(); ++it1)
 		{

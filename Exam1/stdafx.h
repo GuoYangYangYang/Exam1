@@ -20,8 +20,8 @@
 #include <direct.h>
 #include <errno.h>
 #include <vector>
-//#include <shellapi.h>
-
+#include <windows.h>
+#include <shellapi.h>
 using namespace std;
 
 

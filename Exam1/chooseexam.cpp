@@ -1,7 +1,5 @@
 #include "stdafx.h"
 #include "exam.h"
-#include <windows.h>
-#include <shellapi.h>
 
 
 LPCWSTR stringToLPCWSTR(std::string orig)
@@ -29,6 +27,7 @@ string chooseInsert(vector<string> folder)
 	string Folder = folder[chooseFolder - 1];
 	//string csv = folder[chooseFolder - 1] + "\\理科总成绩.csv";
 	//cout << ShellExecute(nullptr, _T("open"), stringToLPCWSTR(folder[chooseFolder - 1]), stringToLPCWSTR("/理科总成绩.csv"), _T(""), 0);
+	/*
 	int type = 0;
 	cout << "请输入数字1到4其中一个，选择要分析的类型：" << endl;
 	cout << "1: 理科" << endl;
@@ -61,8 +60,8 @@ string chooseInsert(vector<string> folder)
 		return Folder;
 	default:
 		cout << "非法输入" << endl;
-	}
-	return folder[chooseFolder - 1];
+	}*/
+	return Folder;
 }
 
 string chooseCreate()
@@ -74,6 +73,7 @@ string chooseCreate()
 	int grade = 0;
 	string gradeS;
 	string dirName;
+	string dirNameOut;
 	while (!is)
 	{
 		cout << "输入学校名字：";
@@ -91,10 +91,12 @@ string chooseCreate()
 		cout << "确定输入是否正确：" << school << name << "理（文）科高" << gradeS << "年级所有科目总成绩" << endl;
 		cout << "输入1表示正确，输入0重新输入以上数据：";
 		cin >> is;
-		dirName = "D://成绩录入\\" + school + name + "理（文）科高" + gradeS + "年级所有科目总成绩";
-		if (_access(dirName.c_str(), 0) == -1)
+		dirName = "D:\\成绩录入\\" + school + name + "理（文）科高" + gradeS + "年级所有科目总成绩";
+		dirNameOut = "D:\\成绩分析\\" + school + name + "理（文）科高" + gradeS + "年级所有科目总成绩";
+		if (_access(dirName.c_str(), 0) == -1 && _access(dirNameOut.c_str(), 0) == -1)
 		{
 			_mkdir(dirName.c_str());
+			_mkdir(dirNameOut.c_str());
 			cout << "新考试信息创建成功" << endl;
 		}
 		else
@@ -187,7 +189,7 @@ string chooseExam()
 
 	int choose = 0;
 	
-	while (true)
+	//while (true)
 	{
 		cin >> choose;
 		if (choose == 1) {
