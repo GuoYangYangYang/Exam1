@@ -22,6 +22,7 @@
 #include <vector>
 #include <windows.h>
 #include <shellapi.h>
+#include <sstream>
 using namespace std;
 
 

@@ -54,6 +54,7 @@ dkms.conf
 /Debug/
 /Exam1/Debug/
 /Exam1/Exam1/Debug/
+/ipch/
 *.opendb
 *.db
 *.VC

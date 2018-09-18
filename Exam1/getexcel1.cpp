@@ -1,31 +1,39 @@
 #include "stdafx.h"
 #include "exam.h"
 
+bool isNum(string str)
+{
+	stringstream sin(str);
+	double d;
+	char c;
+	if (!(sin >> d))
+		return false;
+	if (sin >> c)
+		return false;
+	return true;
+}
+
 void getData(const char * excelName, Csv csv, string type, double fristBatch, double secondBatch)
 {
 	if (csv.table[0][6].compare("×Ü·Ö") == 0)
 	{
 		ofstream excel1;
 		excel1.open(excelName, std::ios::out | std::ios::app);
+		int i = 0;
 		int student = 0;
 		int fristStudent = 0;
 		int secondStudent = 0;
 		double fristBatchDouble = 0;
 		double secondBatchDouble = 0;
-		try {
-		for (student = 1; !csv.table[student][6].empty(); student++)
+		for (i = 1; ((isNum(csv.table[i][6]) && (csv.table[i][6].compare(""))); i++)
 		{
 			if (atoi(csv.table[student][6].c_str()) >= fristBatch) fristStudent++;
 			if (atoi(csv.table[student][6].c_str()) >= secondBatch) secondStudent++;
 		}
-		throw "";
 
 		fristBatchDouble = 100.0 * (fristStudent * 1.0) / (student * 1.0);
 		secondBatchDouble = 100.0 * (secondStudent * 1.0) / (student * 1.0);
-		}
-		catch (exception e){
-			cout << e.what() << endl;
-		}
+
 		excel1 << type << "," << student << "," << fristStudent << ",";
 		excel1 << fixed << setprecision(2) << fristBatchDouble << "%,";
 		excel1 << secondStudent << ",";
