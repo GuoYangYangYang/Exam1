@@ -174,6 +174,7 @@ bool getExcel1(string folderIntput, string folderOutput, string name, string gra
 	Csv csv3(file3);
 	Csv csv4(file4);
 
+	// 分析四种数据
 	string type = "";
 	type = "理科";
 	getData(excelNamec1, csv1, type, scienceFristBatch, scienceSecondBatch); // 分析理科总成绩
