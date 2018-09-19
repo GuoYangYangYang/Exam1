@@ -48,4 +48,4 @@ public:
 
 };
 
-string getExcel1(string, string, string, string);
+bool getExcel1(string, string, string, string);
