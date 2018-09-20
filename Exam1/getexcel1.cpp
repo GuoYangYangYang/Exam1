@@ -4,32 +4,9 @@
 /********************************************************************************
 copyright: hust
 Author: 果羊羊
-Last Date: 2018-9-19
+Last Date: 2018-9-20
 Description: 表一：XXXX高X年级理（文）科一本人数与本科人数及比例
 ********************************************************************************/
-
-/********************************************************************************
-Function: isNum
-Description: 判断一个字符串是否可以被转化为数字
-Calls: getExcel1
-Table Accessed: null
-Table Updated: null
-Input: 简单的字符串
-Output: null
-Return: true代表字符串可以转化为数字，false则不能
-Others: null
-********************************************************************************/
-bool isNum(string str)
-{
-	stringstream sin(str);
-	double d;
-	char c;
-	if (!(sin >> d))
-		return false;
-	if (sin >> c)
-		return false;
-	return true;
-}
 
 /********************************************************************************
 Function: getData
@@ -105,7 +82,7 @@ Table Accessed:
 		4. 艺文总成绩.csv
 Table Updated: XXXX高X年级理（文）科一本人数与本科人数及比例
 Input: 
-		1. string folderIntput: 原创数据所在的文件夹的绝对地址
+		1. string folderIntput: 原始数据所在的文件夹的绝对地址
 		2. string folderOutput：分析数据所在的文件夹的绝对地址
 		3. string name: 此次考试的名字或者称号
 		4. string gradeS: 参考学生的年级

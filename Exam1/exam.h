@@ -4,6 +4,9 @@
 using std::string;
 using std::vector;
 
+void clear();
+bool isNum(string);
+
 bool init();
 bool createDirectory(const std::string folder);
 void GetAllFiles(std::string path, vector<std::string>& files);
@@ -49,4 +52,4 @@ public:
 };
 
 bool getExcel1(string, string, string, string);
-bool getExcel1(string, string, string, string);
+bool getExcel2(string, string, string, string);

@@ -151,6 +151,7 @@ void chooseExcel(string folder)
 		getExcel1(folder, fileOutput, name, gradeS);
 		break;
 	case (2):
+		getExcel2(folder, fileOutput, name, gradeS);
 		break;
 	default:
 		break;
