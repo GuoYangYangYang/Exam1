@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "exam.h"
+#include "stdafx.h" 
+#include "exam.h" 
 
 bool init()
 {

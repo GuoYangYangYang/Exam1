@@ -149,6 +149,9 @@ void chooseExcel(string folder)
 	case (1) :
 		//cout << folder << endl;
 		getExcel1(folder, fileOutput, name, gradeS);
+		break;
+	case (2):
+		break;
 	default:
 		break;
 	}
