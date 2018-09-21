@@ -53,3 +53,4 @@ public:
 
 bool getExcel1(string, string, string, string);
 bool getExcel2(string, string, string, string);
+bool getExcel3(string, string, string, string);
