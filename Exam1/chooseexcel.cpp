@@ -147,7 +147,6 @@ void chooseExcel(string folder)
 	switch (type)
 	{
 	case (1) :
-		//cout << folder << endl;
 		getExcel1(folder, fileOutput, name, gradeS);
 		break;
 	case (2):
@@ -155,6 +154,15 @@ void chooseExcel(string folder)
 		break;
 	case (3):
 		getExcel3(folder, fileOutput, name, gradeS);
+		break;
+	case (4):
+		getExcel4(folder, fileOutput, name, gradeS);
+		break;
+	case (5):
+		getExcel5(folder, fileOutput, name, gradeS);
+		break;
+	case (6):
+		getExcel6(folder, fileOutput, name, gradeS);
 		break;
 	default:
 		break;

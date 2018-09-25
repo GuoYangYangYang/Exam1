@@ -23,6 +23,7 @@
 #include <windows.h>
 #include <shellapi.h>
 #include <sstream>
+#include <math.h>
 using namespace std;
 
 

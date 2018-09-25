@@ -9,14 +9,14 @@ Description: 表三：XXXX高X年级各班一本人数与本科人数及比例
 ********************************************************************************/
 
 /* 班级分数统计信息 */
-typedef struct classData
+typedef struct ClassData
 {
 	string className; /* 班级名称 */
 	int allNumber; /* 班级参考人数 */
 	int fristNumber; /* 过一本线人数 */
 	int secondNumber; /* 过本科线人数 */
 	bool SorA; /* 理科还是文科？ */
-} classData;
+} ClassData;
 
 /********************************************************************************
 Function: initClass3
@@ -25,14 +25,14 @@ Calls: getData3
 Table Accessed: null
 Table Updated: null
 Input:
-1. vector<classData> &Class: 数据统计表
+1. vector<ClassData> &Class: 数据统计表
 2. string gradeS: 学生年级
 3. string classS: 学生班级
 Output: 在Class生成一行班级初始数据
 Return: 班级号码
 Others: null
 ********************************************************************************/
-int initClass3(vector<classData> &Class, string gradeS, string classS)
+int initClass3(vector<ClassData> &Class, string gradeS, string classS)
 {
 	classS = classS.substr(2, 2);
 	if (isNum(classS)) // 检测班级号码是否合法
@@ -46,7 +46,7 @@ int initClass3(vector<classData> &Class, string gradeS, string classS)
 				string className = "高" + gradeS + "（";
 				className += to_string(ClassN + 1);
 				className += "）";
-				classData classNew = {className, 0, 0, 0, true}; // 初始化数据表，默认为“理科”
+				ClassData classNew = {className, 0, 0, 0, true}; // 初始化数据表，默认为“理科”
 				Class.push_back(classNew);
 				ClassN++;
 			}
@@ -64,14 +64,14 @@ Table Accessed: null
 Table Updated: null
 Input:
 		1. Csv csv: 已经处理好的Csv对象，内含原始数据表table
-		2. vector<classData> &Class: 临时数据分析表
+		2. vector<ClassData> &Class: 临时数据分析表
 		3. double fristBatch: 一本线分数
 		4. double secondBatch: 本科线分数
 Output: 将各班参考人数，一本人数和本科人数统计到临时数据分析表中
 Return: null
 Others: null
 ********************************************************************************/
-void getData3(Csv csv, vector<classData> &Class, string gradeS, double fristBatch, double secondBatch)
+void getData3(Csv csv, vector<ClassData> &Class, string gradeS, double fristBatch, double secondBatch)
 {
 	// 检测原始数据表格第四列是否为“班级”和第六列是否为“总分”
 	if ((csv.table[0][3].compare("科类") == 0) && (csv.table[0][4].compare("班级") == 0) && (csv.table[0][6].compare("总分") == 0))
@@ -162,7 +162,7 @@ bool getExcel3(string folderIntput, string folderOutput, string name, string gra
 	Csv csv4(file4);
 
 	// 班级信息
-	vector<classData> Class;
+	vector<ClassData> Class;
 
 	// 分析四种数据
 	getData3(csv1, Class, gradeS, scienceFristBatch, scienceSecondBatch); // 分析理科总成绩

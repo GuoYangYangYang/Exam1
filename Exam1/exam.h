@@ -19,6 +19,8 @@ int my_split(const std::string& src, const char& delim,
 
 class Csv
 {
+private:
+
 public:
 	vector <vector <string>> table;    //存储表格结构的二维vector
 	int RowsCount;
@@ -54,3 +56,9 @@ public:
 bool getExcel1(string, string, string, string);
 bool getExcel2(string, string, string, string);
 bool getExcel3(string, string, string, string);
+bool getExcel4(string, string, string, string);
+bool getExcel5(string, string, string, string);
+bool getExcel6(string, string, string, string);
+bool getExcel7(string, string, string, string);
+bool getExcel8(string, string, string, string);
+bool getExcel9(string, string, string, string);

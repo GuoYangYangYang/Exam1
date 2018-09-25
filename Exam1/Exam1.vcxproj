@@ -159,6 +159,9 @@
     <ClCompile Include="getexcel1.cpp" />
     <ClCompile Include="getExcel2.cpp" />
     <ClCompile Include="getExcel3.cpp" />
+    <ClCompile Include="getExcel4.cpp" />
+    <ClCompile Include="getExcel5.cpp" />
+    <ClCompile Include="getExcel6.cpp" />
     <ClCompile Include="init.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
