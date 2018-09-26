@@ -1,9 +1,6 @@
 #include "stdafx.h"
 #include "exam.h"
 
-
-
-
 int my_split(const std::string& src, const char& delim,
 	std::vector<std::string>& vec)
 {
