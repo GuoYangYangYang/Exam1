@@ -161,6 +161,9 @@ void chooseExcel(string folder)
 	case (6):
 		getExcel6(folder, fileOutput, name, gradeS);
 		break;
+	case (7):
+		getExcel7(folder, fileOutput, name, gradeS);
+		break;
 	default:
 		break;
 	}
