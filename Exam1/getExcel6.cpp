@@ -15,7 +15,7 @@ void setScoreBatch(int Class[][5])
 	int secondBatch = 0;
 	while (true)
 	{
-		vector<string> name = { "语文","理数","文数","英语","物理","化学","生物","理综","政治","地理","历史","文综" };
+		vector<string> name = { "语文","理数","文数","英语","物理","化学","生物","理综","政治","历史","地理","文综" };
 		cout << "+--------------------------------------" << endl;
 		cout << "|选择数字设置对应科目的一本线和本科线" << endl;
 		cout << "+--------------------------------------" << endl;
@@ -69,8 +69,8 @@ void getData6(Csv csv, int Class[][5], string typeS)
 				if (csv.table[0][i].compare("生物") == 0) type = 7;
 				if (csv.table[0][i].compare("理综") == 0) type = 8;
 				if (csv.table[0][i].compare("政治") == 0) type = 9;
-				if (csv.table[0][i].compare("地理") == 0) type = 10;
-				if (csv.table[0][i].compare("历史") == 0) type = 11;
+				if (csv.table[0][i].compare("历史") == 0) type = 10;
+				if (csv.table[0][i].compare("地理") == 0) type = 11;
 				if (csv.table[0][i].compare("文综") == 0) type = 12;
 
 				if (type == 0)
@@ -156,16 +156,6 @@ bool getExcel6(string folderIntput, string folderOutput, string name, string gra
 	typeS = "艺文";
 	getData6(csv4, Class, typeS); // 分析艺文总成绩
 
-	for (int i = 0; i < 13; i++)
-	{
-		for (int j = 0; j < 5; j++)
-		{
-			cout << Class[i][j] << " ";
-		}
-		cout << endl;
-	}
-
-
 	// 删除原分析文件，建立新的数据分析文件，并打开
 	remove(excelNamec6);
 	ofstream excel6;
@@ -180,7 +170,7 @@ bool getExcel6(string folderIntput, string folderOutput, string name, string gra
 	// 初始化数据分析表
 	excel6 << "科目,参考人数,一本人数,比例,本科人数,比例" << endl;
 
-	vector<string> type = { "语文","理数","文数","英语","物理","化学","生物","理综","政治","地理","历史","文综" };
+	vector<string> type = { "语文","理数","文数","英语","物理","化学","生物","理综","政治","历史","地理","文综" };
 
 	for (int i = 0; i < type.size(); i++)
 	{
