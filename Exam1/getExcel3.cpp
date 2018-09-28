@@ -35,7 +35,7 @@ Others: null
 int initClass3(vector<ClassData> &Class, string gradeS, string classS)
 {
 	classS = classS.substr(2, 2);
-	if (isNum(classS)) // 检测班级号码是否合法
+	if (Exam().isNum(classS)) // 检测班级号码是否合法
 	{
 		int classN = atoi(classS.c_str()); // 获取班级号码
 		if (classN > Class.size()) // 若班级号码超过现有数据表的行数，则进行初始化，直到班级号码等于数据表最大行数
@@ -74,22 +74,22 @@ Others: null
 void getData3(Csv csv, vector<ClassData> &Class, string gradeS, double fristBatch, double secondBatch)
 {
 	// 检测原始数据表格第四列是否为“班级”和第六列是否为“总分”
-	if ((csv.table[0][3].compare("科类") == 0) && (csv.table[0][4].compare("班级") == 0) && (csv.table[0][6].compare("总分") == 0))
+	if ((csv.getTable()[0][3].compare("科类") == 0) && (csv.getTable()[0][4].compare("班级") == 0) && (csv.getTable()[0][6].compare("总分") == 0))
 	{
 		int i = 1; // 行数
 		int score = -1; // 当前学生的分数
 		int classN = -1; // 当前学生的班级
 
-		if (!csv.table.empty()) // 如果原始数据表格不为空
+		if (!csv.getTable().empty()) // 如果原始数据表格不为空
 		{
-			for (i = 1; (isNum(csv.table[i][6])); i++) // 当行第六列的数据为数字时
+			for (i = 1; (Exam().isNum(csv.getTable()[i][6])); i++) // 当行第六列的数据为数字时
 			{
-				classN = initClass3(Class, gradeS, csv.table[i][4]); // 获取班级号码，若数据表中不存在则进行初始化
+				classN = initClass3(Class, gradeS, csv.getTable()[i][4]); // 获取班级号码，若数据表中不存在则进行初始化
 				if (classN != -1)
 				{
-					if (!csv.table[i][3].compare("理科")) Class[classN - 1].SorA = true; // 理科置为true
+					if (!csv.getTable()[i][3].compare("理科")) Class[classN - 1].SorA = true; // 理科置为true
 					else Class[classN - 1].SorA = false; // 文科置为false
-					score = atoi(csv.table[i][6].c_str()); // 获取当前学生分数
+					score = atoi(csv.getTable()[i][6].c_str()); // 获取当前学生分数
 					if (score >= 0) Class[classN - 1].allNumber++; // 学生数据有效，则参考人数加一
 					if (score >= secondBatch) Class[classN - 1].secondNumber++; // 成绩达到本科线，则本科人数加一
 					if (score >= fristBatch) Class[classN - 1].fristNumber++; // 成绩达到一本线，则一本人数加一

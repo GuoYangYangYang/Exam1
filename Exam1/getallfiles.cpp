@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "exam.h"
 
-void GetAllFiles(std::string path, vector<std::string>& files)
+void Exam::GetAllFiles(std::string path, vector<std::string>& files)
 {
 	long   hFile = 0;
 	//文件信息    

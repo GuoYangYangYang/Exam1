@@ -2,30 +2,16 @@
 //
 
 #include "stdafx.h"
-//#include "CSV.h"
 #include "exam.h"
 
 #define APP_VERSION 1.1
-#define DEFAULT_SCHOOL "国华学校"
 
 int main()
 {
 	cout << "考试成绩分析系统：" << APP_VERSION << endl;
-
-	if (!init()) exit(0);
-
 	
-
-
-	//while (1)
-	{
-		cout << "---------------------------------------------------------------------------------------------------" << endl;
-		string file = chooseExam();
-		chooseExcel(file);
-		cout << "---------------------------------------------------------------------------------------------------" << endl;
-		//system("cls");
-	}/*
-	*/
+	Exam* exam = new Exam();
+	exam->getExam();
 
 	/*
 	//定义文件输出流 

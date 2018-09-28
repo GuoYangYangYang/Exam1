@@ -29,7 +29,7 @@ void setScoreBatch9(vector<float> &scoreSection)
 int initClass9(vector<vector<int>> &Class, string classS, int scoreSectionSize)
 {
 	classS = classS.substr(2, 2);
-	if (isNum(classS)) // 检测班级号码是否合法
+	if (Exam().isNum(classS)) // 检测班级号码是否合法
 	{
 		int classN = atoi(classS.c_str()); // 获取班级号码
 		if (classN >= Class.size()) // 若班级号码超过现有数据表的行数，则进行初始化，直到班级号码等于数据表最大行数
@@ -63,15 +63,15 @@ int findScoreSection9(vector<float> scoreSection, float score)
 void getData9(Csv csv, vector<vector<int>> &Class, vector<float> scoreSection, string typeS)
 {
 	// 检测原始数据表格第三列是否为“科类”，第四列是否为“班级”和第六列是否为“总分”
-	if ((csv.table[0][3].compare("科类") == 0) &&
-		(csv.table[0][4].compare("班级") == 0) &&
-		(csv.table[0][6].compare("总分") == 0)
+	if ((csv.getTable()[0][3].compare("科类") == 0) &&
+		(csv.getTable()[0][4].compare("班级") == 0) &&
+		(csv.getTable()[0][6].compare("总分") == 0)
 		)
 	{
 
 		int typeN = 0;
 		for (int l = 7; l <= 12; l++)
-			if (csv.table[0][l].compare(typeS) == 0)
+			if (csv.getTable()[0][l].compare(typeS) == 0)
 				typeN = l;
 
 		int i = 1; // 行数
@@ -79,14 +79,14 @@ void getData9(Csv csv, vector<vector<int>> &Class, vector<float> scoreSection, s
 		float score =  0; // 当前学生的分数
 		int section = -1; // 当前学生单科所在分数段
 
-		if (!csv.table.empty()) // 如果原始数据表格不为空
+		if (!csv.getTable().empty()) // 如果原始数据表格不为空
 		{
-			for (i = 1; (isNum(csv.table[i][6])); i++) // 当列的数据为数字时
+			for (i = 1; (Exam().isNum(csv.getTable()[i][6])); i++) // 当列的数据为数字时
 			{
-				classN = initClass9(Class, csv.table[i][4], scoreSection.size()); // 获取班级号码，若数据表中不存在则进行初始化
+				classN = initClass9(Class, csv.getTable()[i][4], scoreSection.size()); // 获取班级号码，若数据表中不存在则进行初始化
 				if (classN != -1)
 				{
-					score = atof(csv.table[i][typeN].c_str()); // 获取当前学生分数
+					score = atof(csv.getTable()[i][typeN].c_str()); // 获取当前学生分数
 					if (score > 0.0)
 					{
 						Class[classN][0]++; // 学生数据有效，则参考人数加一

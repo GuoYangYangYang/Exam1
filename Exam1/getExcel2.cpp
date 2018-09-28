@@ -8,80 +8,18 @@ Last Date: 2018-9-20
 Description: 表二：XXXX高X年级理（文）科总分分数段人数及比例
 ********************************************************************************/
 
-/********************************************************************************
-Function: getData2
-Description: 统计一个csv表中“总分”这一列的分数段
-Calls: getExcel2
-Table Accessed: XXXX高X年级理（文）科总分分数段人数及比例
-Table Updated: XXXX高X年级理（文）科总分分数段人数及比例
-Input:
-1. const char * excelName: 数据分析表的绝对地址
-2. Csv csv: 已经处理好的Csv对象，内含原始数据表table
-3. string type: 此次分析数据的类型，主要有：理科，文科，艺理，艺文
-4. vector<double> scoreSection: 每个元素为分数段中每段的分数
-Output: 在指定csv文件生成一行分析数据
-Return: null
-Others: null
-********************************************************************************/
-void getData2(const char * excelName, Csv csv, string type, vector<double> scoreSection)
+Excel2::Excel2(string folderInput, string folderOutput, string name, string gradeS)
+	: Excel(folderInput, folderOutput, name, gradeS)
 {
-	if (csv.table[0][6].compare("总分") == 0) // 检测原始数据表格第六列是否为“总分”
-	{
-		ofstream excel2;
-		excel2.open(excelName, std::ios::out | std::ios::app); // 打开分析文件数据流
+	initData();
+}
 
-		int i = 1; // 行数
-		int score = -1; // 当前学生的分数
-		int student = 0; // 学生数目
-		int scoreEvery[1000] = { 0 }; // 一分一段表
-		int scoreSectionSize = scoreSection.size(); // 所划分的分数段数目
-		vector<int> scoreNumber(scoreSectionSize + 1); // 每个分数段的学生人数
-		vector<double> scoreBatch(scoreSectionSize + 1); // 每个分数段的学生比例
-
-		if (!csv.table.empty()) // 如果原始数据表格不为空
-		{
-			for (i = 1; (isNum(csv.table[i][6])); i++) // 当行第六列的数据为数字时
-			{
-				score = atoi(csv.table[i][6].c_str()); // 记录当前学生的总分
-				scoreEvery[score]++;
-				student++;
-				score = -1; // 置回学生分数
-			}
-			if (student != 0) // 若参考人数不为0
-			{
-				for (int i = 0, j = scoreSectionSize - 1; i < 1000; i++) // 从一分一段表中提取每一分的人数
-				{
-					if (scoreEvery[i] > 0) // 若当前分数的人数大于0
-					{
-						if (i < scoreSection[j]) // 若当前分数小于最小值，则将当前分数的人数相加到最后一个分数段
-						{
-							scoreNumber[j + 1] += scoreEvery[i];
-						}
-						else // 若当前分数大于最小值
-						{
-							while (j > 0 && i >= scoreSection[j - 1]) j--; // 从最后一个分数段往前比较，找到适合该分数的分数段
-							scoreNumber[j] += scoreEvery[i]; // 找到后将该分数的人数相加到相应的分数段
-						}
-					}
-				}
-				for (int i = 0; i <= scoreSectionSize; i++) // 通过每个分数段的人数计算每个分数段的学生比例
-				{
-					scoreBatch[i] = 100 * (1.0 * scoreNumber[i]) / (1.0 * student);
-				}
-			}
-
-		}
-
-		// 最后输出数据到指定csv文件中
-		excel2 << type << "," << student;
-		for (auto n : scoreNumber) excel2 << "," << n;
-		excel2 << endl;
-		excel2 << ",";
-		for (auto b : scoreBatch) excel2 << "," << fixed << setprecision(2) << b << "%";
-		excel2 << endl;
-
-		excel2.close(); // 关闭输出流
-	}
+void Excel2::initData()
+{
+	this->folderInput = getFolderInput();
+	this->folderOutput = getFolderOutput();
+	this->name = getName();
+	this->gradeS = getGradeString();
 }
 
 /********************************************************************************
@@ -184,4 +122,82 @@ bool getExcel2(string folderIntput, string folderOutput, string name, string gra
 	getData2(excelNamec2, csv4, type, scoreSection);
 	excel2.close();
 	return true;
+}
+
+
+/********************************************************************************
+Function: getData2
+Description: 统计一个csv表中“总分”这一列的分数段
+Calls: getExcel2
+Table Accessed: XXXX高X年级理（文）科总分分数段人数及比例
+Table Updated: XXXX高X年级理（文）科总分分数段人数及比例
+Input:
+1. const char * excelName: 数据分析表的绝对地址
+2. Csv csv: 已经处理好的Csv对象，内含原始数据表table
+3. string type: 此次分析数据的类型，主要有：理科，文科，艺理，艺文
+4. vector<double> scoreSection: 每个元素为分数段中每段的分数
+Output: 在指定csv文件生成一行分析数据
+Return: null
+Others: null
+********************************************************************************/
+void getData2(const char * excelName, Csv &csv, string type, vector<double> scoreSection)
+{
+	vector<vector<string>> &table = csv.getTable();
+	if (table[0][6].compare("总分") == 0) // 检测原始数据表格第六列是否为“总分”
+	{
+		ofstream excel2;
+		excel2.open(excelName, std::ios::out | std::ios::app); // 打开分析文件数据流
+
+		int i = 1; // 行数
+		int score = -1; // 当前学生的分数
+		int student = 0; // 学生数目
+		int scoreEvery[1000] = { 0 }; // 一分一段表
+		int scoreSectionSize = scoreSection.size(); // 所划分的分数段数目
+		vector<int> scoreNumber(scoreSectionSize + 1); // 每个分数段的学生人数
+		vector<double> scoreBatch(scoreSectionSize + 1); // 每个分数段的学生比例
+
+		if (!table.empty()) // 如果原始数据表格不为空
+		{
+			for (i = 1; (Exam().isNum(table[i][6])); i++) // 当行第六列的数据为数字时
+			{
+				score = atoi(table[i][6].c_str()); // 记录当前学生的总分
+				scoreEvery[score]++;
+				student++;
+				score = -1; // 置回学生分数
+			}
+			if (student != 0) // 若参考人数不为0
+			{
+				for (int i = 0, j = scoreSectionSize - 1; i < 1000; i++) // 从一分一段表中提取每一分的人数
+				{
+					if (scoreEvery[i] > 0) // 若当前分数的人数大于0
+					{
+						if (i < scoreSection[j]) // 若当前分数小于最小值，则将当前分数的人数相加到最后一个分数段
+						{
+							scoreNumber[j + 1] += scoreEvery[i];
+						}
+						else // 若当前分数大于最小值
+						{
+							while (j > 0 && i >= scoreSection[j - 1]) j--; // 从最后一个分数段往前比较，找到适合该分数的分数段
+							scoreNumber[j] += scoreEvery[i]; // 找到后将该分数的人数相加到相应的分数段
+						}
+					}
+				}
+				for (int i = 0; i <= scoreSectionSize; i++) // 通过每个分数段的人数计算每个分数段的学生比例
+				{
+					scoreBatch[i] = 100 * (1.0 * scoreNumber[i]) / (1.0 * student);
+				}
+			}
+
+		}
+
+		// 最后输出数据到指定csv文件中
+		excel2 << type << "," << student;
+		for (auto n : scoreNumber) excel2 << "," << n;
+		excel2 << endl;
+		excel2 << ",";
+		for (auto b : scoreBatch) excel2 << "," << fixed << setprecision(2) << b << "%";
+		excel2 << endl;
+
+		excel2.close(); // 关闭输出流
+	}
 }

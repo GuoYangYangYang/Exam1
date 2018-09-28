@@ -50,7 +50,7 @@ void setScoreBatch7(vector<vector<int>> &Class)
 int initClass7(vector<vector<int>> &Class, string classS)
 {
 	classS = classS.substr(2, 2);
-	if (isNum(classS)) // 检测班级号码是否合法
+	if (Exam().isNum(classS)) // 检测班级号码是否合法
 	{
 		int classN = atoi(classS.c_str()); // 获取班级号码
 		if (classN >= Class.size()) // 若班级号码超过现有数据表的行数，则进行初始化，直到班级号码等于数据表最大行数
@@ -71,31 +71,31 @@ int initClass7(vector<vector<int>> &Class, string classS)
 void getData7(Csv csv, vector<vector<int>> &Class)
 {
 	// 检测原始数据表格第三列是否为“科类”，第四列是否为“班级”和第六列是否为“总分”。。。。。。
-	if ((csv.table[0][3].compare("科类") == 0) && 
-		(csv.table[0][4].compare("班级") == 0) && 
-		(csv.table[0][6].compare("总分") == 0) &&
-		(csv.table[0][7].compare("语文") == 0) &&
-		(csv.table[0][8].compare("理数") == 0) &&
-		(csv.table[0][9].compare("英语") == 0) &&
-		(csv.table[0][10].compare("物理") == 0) &&
-		(csv.table[0][11].compare("化学") == 0) &&
-		(csv.table[0][12].compare("生物") == 0)
+	if ((csv.getTable()[0][3].compare("科类") == 0) &&
+		(csv.getTable()[0][4].compare("班级") == 0) &&
+		(csv.getTable()[0][6].compare("总分") == 0) &&
+		(csv.getTable()[0][7].compare("语文") == 0) &&
+		(csv.getTable()[0][8].compare("理数") == 0) &&
+		(csv.getTable()[0][9].compare("英语") == 0) &&
+		(csv.getTable()[0][10].compare("物理") == 0) &&
+		(csv.getTable()[0][11].compare("化学") == 0) &&
+		(csv.getTable()[0][12].compare("生物") == 0)
 		)
 	{
 		int i = 1; // 行数
 		int classN = -1; // 当前学生的班级
 		float score[8] = { 0 };
 
-		if (!csv.table.empty()) // 如果原始数据表格不为空
+		if (!csv.getTable().empty()) // 如果原始数据表格不为空
 		{
-			for (i = 1; (isNum(csv.table[i][6])); i++) // 当行第六列的数据为数字时
+			for (i = 1; (Exam().isNum(csv.getTable()[i][6])); i++) // 当行第六列的数据为数字时
 			{
-				classN = initClass7(Class, csv.table[i][4]); // 获取班级号码，若数据表中不存在则进行初始化
+				classN = initClass7(Class, csv.getTable()[i][4]); // 获取班级号码，若数据表中不存在则进行初始化
 				if (classN != -1)
 				{
 					for (int j = 0; j < 7; j++)
 					{
-						score[j] = atof(csv.table[i][j + 6].c_str()); // 获取当前学生分数
+						score[j] = atof(csv.getTable()[i][j + 6].c_str()); // 获取当前学生分数
 					}
 					score[7] = score[4] + score[5] + score[6]; // 计算学生理综成绩
 					if (score[0] >= 0) Class[classN][0]++; // 学生数据有效，则参考人数加一

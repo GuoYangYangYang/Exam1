@@ -41,9 +41,6 @@
     <ClCompile Include="create.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="init.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="getallfiles.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -51,9 +48,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="chooseexcel.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="getexcel1.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="getExcel2.cpp">
@@ -78,6 +72,24 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="getExcel9.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="csv.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="exam.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="getExcel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="input.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="excel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="getExcel1.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -45,9 +45,9 @@ void setScoreBatch(int Class[][5])
 void getData6(Csv csv, int Class[][5], string typeS)
 {
 	// 检测原始数据表格第四列是否为“班级”和第六列是否为“总分”
-	if ((csv.table[0][3].compare("科类") == 0) && (csv.table[0][4].compare("班级") == 0) && (csv.table[0][6].compare("总分") == 0))
+	if ((csv.getTable()[0][3].compare("科类") == 0) && (csv.getTable()[0][4].compare("班级") == 0) && (csv.getTable()[0][6].compare("总分") == 0))
 	{
-		if (!csv.table.empty()) // 如果原始数据表格不为空
+		if (!csv.getTable().empty()) // 如果原始数据表格不为空
 		{
 			int type = -1;
 			int flag = 0;
@@ -59,22 +59,22 @@ void getData6(Csv csv, int Class[][5], string typeS)
 
 			for (int i = 6; i <= 12; i++)
 			{
-				if (csv.table[0][i].compare("总分") == 0) type = 0;
-				if (csv.table[0][i].compare("语文") == 0) type = 1;
-				if (csv.table[0][i].compare("理数") == 0) type = 2;
-				if (csv.table[0][i].compare("文数") == 0) type = 3;
-				if (csv.table[0][i].compare("英语") == 0) type = 4;
-				if (csv.table[0][i].compare("物理") == 0) type = 5;
-				if (csv.table[0][i].compare("化学") == 0) type = 6;
-				if (csv.table[0][i].compare("生物") == 0) type = 7;
-				if (csv.table[0][i].compare("理综") == 0) type = 8;
-				if (csv.table[0][i].compare("政治") == 0) type = 9;
-				if (csv.table[0][i].compare("历史") == 0) type = 10;
-				if (csv.table[0][i].compare("地理") == 0) type = 11;
-				if (csv.table[0][i].compare("文综") == 0) type = 12;
+				if (csv.getTable()[0][i].compare("总分") == 0) type = 0;
+				if (csv.getTable()[0][i].compare("语文") == 0) type = 1;
+				if (csv.getTable()[0][i].compare("理数") == 0) type = 2;
+				if (csv.getTable()[0][i].compare("文数") == 0) type = 3;
+				if (csv.getTable()[0][i].compare("英语") == 0) type = 4;
+				if (csv.getTable()[0][i].compare("物理") == 0) type = 5;
+				if (csv.getTable()[0][i].compare("化学") == 0) type = 6;
+				if (csv.getTable()[0][i].compare("生物") == 0) type = 7;
+				if (csv.getTable()[0][i].compare("理综") == 0) type = 8;
+				if (csv.getTable()[0][i].compare("政治") == 0) type = 9;
+				if (csv.getTable()[0][i].compare("历史") == 0) type = 10;
+				if (csv.getTable()[0][i].compare("地理") == 0) type = 11;
+				if (csv.getTable()[0][i].compare("文综") == 0) type = 12;
 
 				if (type == 0)
-					for (int j = 1, score = 0.0; (score = atof(csv.table[j][i].c_str())) != 0.0; j++)
+					for (int j = 1, score = 0.0; (score = atof(csv.getTable()[j][i].c_str())) != 0.0; j++)
 						Class[0][flag]++;
 
 				if (type != -1 && type != 0)
@@ -82,7 +82,7 @@ void getData6(Csv csv, int Class[][5], string typeS)
 					float score = 0.0;
 					for (int j = 1; j <= Class[0][flag]; j++)
 					{
-						score = atof(csv.table[j][i].c_str());
+						score = atof(csv.getTable()[j][i].c_str());
 						if (score != 0.0)
 						{
 							if (score >= 0.0) Class[type][0]++;
@@ -97,9 +97,9 @@ void getData6(Csv csv, int Class[][5], string typeS)
 					float score = 0.0, score1 = 0.0, score2 = 0.0, score3 = 0.0;
 					for (int j = 1; j <= Class[0][flag]; j++)
 					{
-						score1 = atof(csv.table[j][i].c_str()), // 获取物理或政治
-						score2 = atof(csv.table[j][i + 1].c_str()), // 获取化学或地理
-						score3 = atof(csv.table[j][i + 2].c_str()), // 获取生物或历史
+						score1 = atof(csv.getTable()[j][i].c_str()), // 获取物理或政治
+						score2 = atof(csv.getTable()[j][i + 1].c_str()), // 获取化学或地理
+						score3 = atof(csv.getTable()[j][i + 2].c_str()), // 获取生物或历史
 						score = score1 + score2 + score3; // 计算理综或文综
 						if (score != 0.0)
 						{

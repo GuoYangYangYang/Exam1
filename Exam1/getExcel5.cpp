@@ -11,7 +11,7 @@ Description: 表五：XXXX高X年级各班成绩平均分和标准差
 int initClass5(vector<vector<int>> &Class1, vector<vector<double>> &Class2, string gradeS, string classS)
 {
 	classS = classS.substr(2, 2);
-	if (isNum(classS)) // 检测班级号码是否合法
+	if (Exam().isNum(classS)) // 检测班级号码是否合法
 	{
 		int classN = atoi(classS.c_str()); // 获取班级号码
 		if (classN + 4 > Class1.size()) // 若班级号码超过现有数据表的行数，则进行初始化，直到班级号码等于数据表最大行数
@@ -34,18 +34,18 @@ int initClass5(vector<vector<int>> &Class1, vector<vector<double>> &Class2, stri
 void getData5_1(Csv csv, vector<vector<int>> &Class1, vector<vector<double>> &Class2, string gradeS, string typeS)
 {
 	// 检测原始数据表格第三列是否为“科类”，第四列是否为“班级”和第六列是否为“总分”
-	if ((csv.table[0][3].compare("科类") == 0) && (csv.table[0][4].compare("班级") == 0) && (csv.table[0][6].compare("总分") == 0))
+	if ((csv.getTable()[0][3].compare("科类") == 0) && (csv.getTable()[0][4].compare("班级") == 0) && (csv.getTable()[0][6].compare("总分") == 0))
 	{
 		int i = 1; // 行数
 		int score = -1; // 当前学生的分数
 		int classN = -1; // 当前学生的班级
 		int type = 0; // 当前学生类型
 
-		if (!csv.table.empty()) // 如果原始数据表格不为空
+		if (!csv.getTable().empty()) // 如果原始数据表格不为空
 		{
-			for (i = 1; (isNum(csv.table[i][6])); i++) // 当行第六列的数据为数字时
+			for (i = 1; (Exam().isNum(csv.getTable()[i][6])); i++) // 当行第六列的数据为数字时
 			{
-				classN = initClass5(Class1, Class2, gradeS, csv.table[i][4]); // 获取班级号码，若数据表中不存在则进行初始化
+				classN = initClass5(Class1, Class2, gradeS, csv.getTable()[i][4]); // 获取班级号码，若数据表中不存在则进行初始化
 				if (classN != -1)
 				{
 					classN += 3;
@@ -53,9 +53,9 @@ void getData5_1(Csv csv, vector<vector<int>> &Class1, vector<vector<double>> &Cl
 					if (!typeS.compare("文科")) type = 1;
 					if (!typeS.compare("艺理")) type = 2;
 					if (!typeS.compare("艺文")) type = 3;
-					if (!csv.table[i][3].compare("理科")) Class1[classN][0] = 1; // 理科置为1
+					if (!csv.getTable()[i][3].compare("理科")) Class1[classN][0] = 1; // 理科置为1
 					else Class1[classN][0] = 0; // 文科置为false
-					score = atoi(csv.table[i][6].c_str()); // 获取当前学生分数
+					score = atoi(csv.getTable()[i][6].c_str()); // 获取当前学生分数
 					if (score >= 0) // 学生数据有效，则参考人数加一
 					{
 						Class1[type][1]++;
@@ -72,18 +72,18 @@ void getData5_1(Csv csv, vector<vector<int>> &Class1, vector<vector<double>> &Cl
 void getData5_2(Csv csv, vector<vector<int>> &Class1, vector<vector<double>> &Class2, string gradeS, string typeS)
 {
 	// 检测原始数据表格第三列是否为“科类”，第四列是否为“班级”和第六列是否为“总分”
-	if ((csv.table[0][3].compare("科类") == 0) && (csv.table[0][4].compare("班级") == 0) && (csv.table[0][6].compare("总分") == 0))
+	if ((csv.getTable()[0][3].compare("科类") == 0) && (csv.getTable()[0][4].compare("班级") == 0) && (csv.getTable()[0][6].compare("总分") == 0))
 	{
 		int i = 1; // 行数
 		int score = -1; // 当前学生的分数
 		int classN = -1; // 当前学生的班级
 		int type = 0; // 当前学生类型
 
-		if (!csv.table.empty()) // 如果原始数据表格不为空
+		if (!csv.getTable().empty()) // 如果原始数据表格不为空
 		{
-			for (i = 1; (isNum(csv.table[i][6])); i++) // 当行第六列的数据为数字时
+			for (i = 1; (Exam().isNum(csv.getTable()[i][6])); i++) // 当行第六列的数据为数字时
 			{
-				classN = initClass5(Class1, Class2, gradeS, csv.table[i][4]); // 获取班级号码，若数据表中不存在则进行初始化
+				classN = initClass5(Class1, Class2, gradeS, csv.getTable()[i][4]); // 获取班级号码，若数据表中不存在则进行初始化
 				if (classN != -1)
 				{
 					classN += 3;
@@ -91,7 +91,7 @@ void getData5_2(Csv csv, vector<vector<int>> &Class1, vector<vector<double>> &Cl
 					if (!typeS.compare("文科")) type = 1;
 					if (!typeS.compare("艺理")) type = 2;
 					if (!typeS.compare("艺文")) type = 3;
-					score = atoi(csv.table[i][6].c_str()); // 获取当前学生分数
+					score = atoi(csv.getTable()[i][6].c_str()); // 获取当前学生分数
 					if (score >= 0) // 学生数据有效，则参考人数加一
 					{
 						Class2[type][1] += (1.0 * score - Class2[type][0]) * (1.0 * score - Class2[type][0]);

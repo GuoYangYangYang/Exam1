@@ -154,9 +154,13 @@
     <ClCompile Include="chooseexam.cpp" />
     <ClCompile Include="chooseexcel.cpp" />
     <ClCompile Include="create.cpp" />
+    <ClCompile Include="csv.cpp" />
+    <ClCompile Include="exam.cpp" />
     <ClCompile Include="Exam1.cpp" />
+    <ClCompile Include="excel.cpp" />
     <ClCompile Include="getallfiles.cpp" />
-    <ClCompile Include="getexcel1.cpp" />
+    <ClCompile Include="getExcel.cpp" />
+    <ClCompile Include="getExcel1.cpp" />
     <ClCompile Include="getExcel2.cpp" />
     <ClCompile Include="getExcel3.cpp" />
     <ClCompile Include="getExcel4.cpp" />
@@ -165,7 +169,7 @@
     <ClCompile Include="getExcel7.cpp" />
     <ClCompile Include="getExcel8.cpp" />
     <ClCompile Include="getExcel9.cpp" />
-    <ClCompile Include="init.cpp" />
+    <ClCompile Include="input.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

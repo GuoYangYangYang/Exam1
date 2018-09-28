@@ -1,9 +1,8 @@
 #include "stdafx.h"
 #include "exam.h"
 
-#define PATH_DELIMITER '\\'
-
-bool createDirectory(const std::string folder) {
+bool Exam::createDirectory(const std::string folder) {
+	const char PATH_DELIMITER = '\\';
 	std::string folder_builder;
 	std::string sub;
 	sub.reserve(folder.size());
