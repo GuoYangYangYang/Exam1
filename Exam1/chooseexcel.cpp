@@ -3,18 +3,20 @@
 
 bool Exam::chooseExcel(string folder)
 {
-	if (folder.empty()) return false;
-	if (!folder.compare("")) return false;
+
+	string Folder = folder;
+	if (Folder.empty()) return false;
+	if (!Folder.compare("")) return false;
 
 	string name;
-	int name1 = folder.find('\\') + 1;
-	int name2 = folder.find('理');
-	name = folder.substr(name1, name2 - name1 - 1);
+	int name1 = Folder.find('\\') + 1;
+	int name2 = Folder.find('理');
+	name = Folder.substr(name1, name2 - name1 - 1);
 
 	int grade = 0;
 	string gradeS = "";
-	int grade1 = (folder.find("理（文）科高"));
-	gradeS = folder.substr(grade1 + 12, 2);
+	int grade1 = (Folder.find("理（文）科高"));
+	gradeS = Folder.substr(grade1 + 12, 2);
 
 	if (gradeS == "一") grade = 1;
 	if (gradeS == "二") grade = 2;
@@ -38,7 +40,7 @@ bool Exam::chooseExcel(string folder)
 		"年级理（文）科各班单科成绩分数段人数及比例"
 	};
 
-	for (excelnumber = 1; excelnumber <= initExcelType.size(); excelnumber++)
+	for (excelnumber = 1; excelnumber <= (int)initExcelType.size(); excelnumber++)
 	{
 		cout << "---+-----------------------------------------------------------------------------------------------" << endl;
 		excelnameS = name + "高" + gradeS + initExcelType[excelnumber - 1];
@@ -49,12 +51,13 @@ bool Exam::chooseExcel(string folder)
 
 	cout << "---------------------------------------------------------------------------------------------------" << endl;
 
-	string fileOutput = "D://成绩分析\\" + name + "理（文）科高" + gradeS + "年级所有科目总成绩";
+	string rootD = root;
+	string fileOutput = rootD + "\\成绩分析\\" + name + "理（文）科高" + gradeS + "年级所有科目总成绩";
 
 	int type = 0;
 	type = inputInteger(1, 9);
 
-	getExcel(folder, fileOutput, name, gradeS, type);
+	getExcel(Folder, fileOutput, name, gradeS, type);
 
 	return true;
 }

@@ -19,7 +19,11 @@ int Exam::inputInteger(int begin, int end)
 		cout << "请输入" << begin << "到" << end << "的整数，包括" << begin << "和" << end << endl;
 		cin >> s;
 		i = atoi(s.c_str());
-		if (i == 0)
+		if (i == begin || i == end)
+		{
+			break;
+		}
+		else if (i == 0)
 		{
 			cout << i << "不是整数！请重新输入！" << endl;
 		}
@@ -32,16 +36,20 @@ int Exam::inputInteger(int begin, int end)
 	return i;
 }
 
-float Exam::inputFloat(float begin, float end)
+double Exam::inputDouble(double begin, double end)
 {
 	string s = "";
-	float i = 0;
+	double i = 0;
 	while (begin <= end)
 	{
 		cout << "请输入" << begin << "到" << end << "的整数或者小数，包括" << begin << "和" << end << endl;
 		cin >> s;
 		i = atof(s.c_str());
-		if (i == 0)
+		if (i == begin || i == end)
+		{
+			break;
+		}
+		else if (i == 0)
 		{
 			cout << i << "不是整数！请重新输入！" << endl;
 		}

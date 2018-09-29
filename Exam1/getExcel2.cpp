@@ -33,7 +33,7 @@ Table Accessed:
 4. 艺文总成绩.csv
 Table Updated: XXXX高X年级理（文）科总分分数段人数及比例
 Input:
-1. string folderIntput: 原始数据所在的文件夹的绝对地址
+1. string folderInput: 原始数据所在的文件夹的绝对地址
 2. string folderOutput：分析数据所在的文件夹的绝对地址
 3. string name: 此次考试的名字或者称号
 4. string gradeS: 参考学生的年级
@@ -41,46 +41,47 @@ Output: XXXX高X年级理（文）科总分分数段人数及比例
 Return: true代表数据分析成功，false则代表失败
 Others: null
 ********************************************************************************/
-bool getExcel2(string folderIntput, string folderOutput, string name, string gradeS)
+bool Excel2::getExcel()
 {
+	Exam().clear();
 	// 数据分析输出文件的绝对路径
 	string excelName2 = folderOutput + "\\" + name + "理（文）科" + "高" + gradeS + "年级总分分数段人数及比例.csv";
 	const char * excelNamec2 = excelName2.c_str();
 
 	// 原始输入数据文件的绝对路径，有四个，分别代表理科，文科，艺理，艺文
-	string file1Intput = folderIntput + "\\理科总成绩.csv";
-	const char * file1 = file1Intput.c_str();
-	string file2Intput = folderIntput + "\\文科总成绩.csv";
-	const char * file2 = file2Intput.c_str();
-	string file3Intput = folderIntput + "\\艺理总成绩.csv";
-	const char * file3 = file3Intput.c_str();
-	string file4Intput = folderIntput + "\\艺文总成绩.csv";
-	const char * file4 = file4Intput.c_str();
+	string file1Input = folderInput + "\\理科总成绩.csv";
+	const char * file1 = file1Input.c_str();
+	string file2Input = folderInput + "\\文科总成绩.csv";
+	const char * file2 = file2Input.c_str();
+	string file3Input = folderInput + "\\艺理总成绩.csv";
+	const char * file3 = file3Input.c_str();
+	string file4Input = folderInput + "\\艺文总成绩.csv";
+	const char * file4 = file4Input.c_str();
 
-	vector<double> scoreSection;
+	// 输入分数段
+	vector<int> scoreSection;
 	
-	double score = -1;
-	double lscore = -1;
+	int score = -1;
+	int lscore = -1;
 	while (true)
 	{ 
 		do {
 			if (lscore != -1) cout << "上一个分数段是" << lscore;
-			cout << "输入分数段,输入的数字必须是单调递减的:" << endl;
-			cin >> score;
-			if (lscore == -1) lscore = score + 1;
+			cout << "输入分数段,输入的数字必须是单调递减的,";
+			
+			if (lscore == -1) {
+				score = Exam().inputInteger(0, MaxScore);
+				lscore = score + 1;
+			}
+			else
+			{
+				score = Exam().inputInteger(0, lscore - 1);
+			}
 		} while (lscore <= score) ;
 		if (score == 0) break;
 		scoreSection.push_back(score);
 		lscore = score;
-		//for (auto a : scoreSection) cout << a;
-		//cout << endl;
 	}
-
-	/*
-	for (int i = 600; i >= 200; i-=50)
-		scoreSection.push_back(i);
-	for (auto a : scoreSection) cout << a;
-		cout << endl;*/
 
 	// 删除原分析文件，建立新的数据分析文件，并打开
 	remove(excelNamec2);
@@ -102,8 +103,6 @@ bool getExcel2(string folderIntput, string folderOutput, string name, string gra
 
 	excel2.close();
 
-	// cout << file1 << endl;
-
 	// 从原来的四个表读取所有学生数据到内存中，并建立相应的Csv对象
 	Csv csv1(file1);
 	Csv csv2(file2);
@@ -113,14 +112,19 @@ bool getExcel2(string folderIntput, string folderOutput, string name, string gra
 	// 分析四种数据
 	string type = "";
 	type = "理科";
-	getData2(excelNamec2, csv1, type, scoreSection);
+	getData(excelNamec2, csv1, type, scoreSection);
 	type = "文科";
-	getData2(excelNamec2, csv2, type, scoreSection);
+	getData(excelNamec2, csv2, type, scoreSection);
 	type = "艺理";
-	getData2(excelNamec2, csv3, type, scoreSection);
+	getData(excelNamec2, csv3, type, scoreSection);
 	type = "艺文";
-	getData2(excelNamec2, csv4, type, scoreSection);
-	excel2.close();
+	getData(excelNamec2, csv4, type, scoreSection);
+
+	Exam().clear();
+	cout << "已生成文件，地址如下，请在我的电脑中打开文件，按1继续：" << endl;
+	cout << excelNamec2 << endl;
+	while (Exam().inputInteger(1) != 1);
+
 	return true;
 }
 
@@ -135,12 +139,12 @@ Input:
 1. const char * excelName: 数据分析表的绝对地址
 2. Csv csv: 已经处理好的Csv对象，内含原始数据表table
 3. string type: 此次分析数据的类型，主要有：理科，文科，艺理，艺文
-4. vector<double> scoreSection: 每个元素为分数段中每段的分数
+4. vector<int> scoreSection: 每个元素为分数段中每段的分数
 Output: 在指定csv文件生成一行分析数据
 Return: null
 Others: null
 ********************************************************************************/
-void getData2(const char * excelName, Csv &csv, string type, vector<double> scoreSection)
+void Excel2::getData(const char * excelName, Csv &csv, string type, vector<int> scoreSection)
 {
 	vector<vector<string>> &table = csv.getTable();
 	if (table[0][6].compare("总分") == 0) // 检测原始数据表格第六列是否为“总分”

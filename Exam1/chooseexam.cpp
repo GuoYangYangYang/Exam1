@@ -9,7 +9,7 @@ string Exam::chooseExam()
 
 	cout << "现在已有下列考试结果信息：" << endl;
 
-	GetAllFiles("D://成绩录入", folder);
+	GetAllFiles(rootS + "\\成绩录入", folder);
 
 	cout << "---+-----------------------------------------------------------------------------------------------" << endl;
 	if (folder.size())
@@ -29,13 +29,13 @@ string Exam::chooseExam()
 
 	cout << "输入1：选择已有考试数据" << endl;
 	cout << "输入2：新建新的考试数据" << endl;
-	cout << "输入3：删除已有考试数据" << endl;
+	//cout << "输入3：删除已有考试数据" << endl;
 
 	int choose = 0;
 
 	//while (true)
 	{
-		choose = inputInteger(1, 3);
+		choose = inputInteger(1, 2);
 		if (choose == 1) {
 			return chooseInsert(folder);
 		}
@@ -59,6 +59,7 @@ string Exam::chooseInsert(vector<string> folder)
 	chooseFolder = inputInteger(1, folder.size());
 	// 清屏
 	clear();
+	if (chooseFolder == 0) return "";
 	cout << "已选择的考试信息为：" << folder[chooseFolder - 1] << endl;
 	string Folder = folder[chooseFolder - 1];
 	return Folder;
@@ -70,6 +71,7 @@ string Exam::chooseCreate()
 	clear();
 
 	cout << "新建新的考试信息" << endl;
+	cout << "新建信息时，输入的名称不能带有“理”字！！！" << endl;
 
 	int is = 0; // 数据是否有效
 	string school; // 考试学校
@@ -101,8 +103,8 @@ string Exam::chooseCreate()
 			is = inputInteger(1);
 		}
 
-		dirName = "D:\\成绩录入\\" + school + name + "理（文）科高" + gradeS + "年级所有科目总成绩";
-		dirNameOut = "D:\\成绩分析\\" + school + name + "理（文）科高" + gradeS + "年级所有科目总成绩";
+		dirName = rootS + "\\成绩录入\\" + school + name + "理（文）科高" + gradeS + "年级所有科目总成绩";
+		dirNameOut = rootS + "\\成绩分析\\" + school + name + "理（文）科高" + gradeS + "年级所有科目总成绩";
 
 		if (_access(dirName.c_str(), 0) == -1 && _access(dirNameOut.c_str(), 0) == -1)
 		{
@@ -156,6 +158,7 @@ string Exam::chooseCreate()
 	file4 << "考号,姓名,学号,科类,班级,性质,总分,语文,文数,英语,政治,历史,地理," << endl;
 	file4.close();
 
+	Exam().clear();
 	return dirName;
 }
 
