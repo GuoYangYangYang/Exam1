@@ -44,7 +44,7 @@ Others: null
 bool Excel1::getExcel()
 {
 	// 数据分析输出文件的绝对路径
-	string excelName1 = "表一：" + folderOutput + "\\" + name + "理（文）科" + "高" + gradeS + "年级一本人数与本科人数及比例.csv";
+	string excelName1 = folderOutput + "\\" + "表一：" + name + "理（文）科" + "高" + gradeS + "年级一本人数与本科人数及比例.csv";
 	const char * excelNamec1 = excelName1.c_str();
 
 	// 原始输入数据文件的绝对路径，有四个，分别代表理科，文科，艺理，艺文
@@ -161,7 +161,7 @@ void Excel1::getData(const char * excelName, Csv &csv, string type, double frist
 		excel1.open(excelName, std::ios::out | std::ios::app); // 打开分析文件数据流
 
 		int i = 1; // 行数
-		int score = -1; // 当前学生的分数
+		double score = -1.0; // 当前学生的分数
 		int student = 0; // 学生数目
 		int fristStudent = 0; // 过一本线的学生数目
 		int secondStudent = 0; // 过本科线的学生数目
@@ -173,11 +173,11 @@ void Excel1::getData(const char * excelName, Csv &csv, string type, double frist
 			//cout << isNum(csv.table[i][6]) << csv.table[i][6].compare("") << endl;
 			for (i = 1; (Exam().isNum(table[i][6])); i++) // 当行第六列的数据为数字时
 			{
-				score = atoi(table[i][6].c_str()); // 记录当前学生的总分
+				score = atof(table[i][6].c_str()); // 记录当前学生的总分
 				if (score >= fristBatch) fristStudent++; // 记录超过或等于一本线的学生人数
 				if (score >= secondBatch) secondStudent++; // 记录超过或等于本科线的学生人数
 				if (score >= 0) student++; // 记录参考学生人数
-				score = -1; // 置回学生分数
+				score = -1.0; // 置回学生分数
 			}
 			if (student != 0) // 若参考人数不为0
 			{

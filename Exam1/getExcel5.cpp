@@ -27,7 +27,7 @@ bool Excel5::getExcel()
 	Exam().clear();
 
 	// 数据分析输出文件的绝对路径
-	string excelName5 = "表五：" + folderOutput + "\\" + name + "高" + gradeS + "年级各班成绩平均分和标准差.csv";
+	string excelName5 = folderOutput + "\\" + "表五：" + name + "高" + gradeS + "年级各班成绩平均分和标准差.csv";
 	const char * excelNamec5 = excelName5.c_str();
 
 	// 原始输入数据文件的绝对路径，有四个，分别代表理科，文科，艺理，艺文

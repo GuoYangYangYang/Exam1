@@ -9,8 +9,8 @@ bool Exam::chooseExcel(string folder)
 	if (!Folder.compare("")) return false;
 
 	string name;
-	int name1 = Folder.find('\\') + 1;
-	int name2 = Folder.find('Ан');
+	int name1 = Folder.find_last_of("\\") + 1;
+	int name2 = Folder.find_last_of("Ан");
 	name = Folder.substr(name1, name2 - name1 - 1);
 
 	int grade = 0;
