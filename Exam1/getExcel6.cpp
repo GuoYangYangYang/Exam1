@@ -27,7 +27,7 @@ bool Excel6::getExcel()
 	Exam().clear();
 
 	// 数据分析输出文件的绝对路径
-	string excelName6 = folderOutput + "\\" + name + "高" + gradeS + "年级各班理（文）科单科一本人数、本科人数及比例.csv";
+	string excelName6 = "表六：" + folderOutput + "\\" + name + "高" + gradeS + "年级各班理（文）科单科一本人数、本科人数及比例.csv";
 	const char * excelNamec6 = excelName6.c_str();
 
 	// 原始输入数据文件的绝对路径，有四个，分别代表理科，文科，艺理，艺文

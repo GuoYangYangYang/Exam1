@@ -90,7 +90,7 @@ bool Excel9::getExcel()
 	else return false;
 
 	// 数据分析输出文件的绝对路径
-	string excelName9 = folderOutput + "\\" + name + "高" + gradeS + "年级" + typeS + "单科分数段人数及比例.csv";
+	string excelName9 = "表九：" + folderOutput + "\\" + name + "高" + gradeS + "年级" + typeS + "单科分数段人数及比例.csv";
 	const char * excelNamec9 = excelName9.c_str();
 
 	// 原始输入数据文件的绝对路径，有四个，分别代表理科，文科，艺理，艺文
