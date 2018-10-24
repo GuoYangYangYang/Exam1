@@ -41,7 +41,7 @@ bool Excel6::getExcel()
 	const char * file4 = file4Input.c_str();
 
 	// 班级信息
-	int Class[14][5] = { 0 };
+	int Class[20][5] = { 0 };
 
 	setScoreBatch(Class);
 
@@ -74,15 +74,28 @@ bool Excel6::getExcel()
 	}
 
 	// 初始化数据分析表
-	excel6 << "科目,参考人数,一本人数,比例,本科人数,比例" << endl;
+	excel6 << "理科,参考人数,一本人数,比例,本科人数,比例" << endl;
 
-	vector<string> type = { "语文","理数","文数","英语","物理","化学","生物","理综","政治","历史","地理","文综" };
+	vector<string> type = { "理语","理数","理英","物理","化学","生物","理综",
+							"文语","文数","文英","政治","历史","地理","文综" };
 
-	for (int i = 0; i < (int)type.size(); i++)
+	for (int i = 0; i < 7; i++) // 输出理科
 	{
 		excel6 << type[i] << "," << Class[i + 1][0] << "," << Class[i + 1][2] << ",";
 		excel6 << fixed << setprecision(2) << 100 * (1.0 * Class[i + 1][2]) / (1.0 *Class[i + 1][0]) << "%,";
-		excel6 << Class[i + 1][0] << ",";
+		excel6 << Class[i + 1][4] << ",";
+		excel6 << fixed << setprecision(2) << 100 * (1.0 * Class[i + 1][4]) / (1.0 *Class[i + 1][0]) << "%";
+		excel6 << endl;
+	}
+
+	excel6 << endl;
+	excel6 << "文科,参考人数,一本人数,比例,本科人数,比例" << endl;
+
+	for (int i = 7; i < 14; i++) // 输出文科
+	{
+		excel6 << type[i] << "," << Class[i + 1][0] << "," << Class[i + 1][2] << ",";
+		excel6 << fixed << setprecision(2) << 100 * (1.0 * Class[i + 1][2]) / (1.0 *Class[i + 1][0]) << "%,";
+		excel6 << Class[i + 1][4] << ",";
 		excel6 << fixed << setprecision(2) << 100 * (1.0 * Class[i + 1][4]) / (1.0 *Class[i + 1][0]) << "%";
 		excel6 << endl;
 	}
@@ -97,6 +110,89 @@ bool Excel6::getExcel()
 	return true;
 }
 
+void Excel6::setScoreBatch(int Class[][5])
+{
+	int flag = -1;
+	int maxScore = -1;
+	int firstBatch = 0;
+	int secondBatch = 0;
+	while (true)
+	{
+		Exam().clear();
+		vector<string> name = { "理语","理数","理英","物理","化学","生物","理综",
+			"文语","文数","文英","政治","历史","地理","文综" };
+		cout << "+--------------------------------------" << endl;
+		cout << "|选择数字设置对应科目的一本线和本科线" << endl;
+		cout << "+--------------------------------------" << endl;
+		for (int i = 1; i <= (int)name.size(); i++)
+		{
+			cout << "|";
+			printf("%2d", i);
+			cout << "|" << name[i - 1];
+			cout << "|一本线：";
+			printf("%3d", Class[i][1]);
+			cout << "|本科线：";
+			printf("%3d", Class[i][3]);
+			cout << endl;
+		}
+		cout << "+--------------------------------------" << endl;
+		flag = Exam().inputInteger(0, name.size());
+		switch (flag)
+		{
+		case(1): // 理语
+			maxScore = MaxChineseScore;
+			break;
+		case(2): // 理数
+			maxScore = MaxMathScore;
+			break;
+		case(3): // 理英
+			maxScore = MaxEnglishScore;
+			break;
+		case(4): // 物理
+			maxScore = MaxPhysicsScore;
+			break;
+		case(5): // 化学
+			maxScore = MaxChemistryScore;
+			break;
+		case(6): // 生物
+			maxScore = MaxBiologyScore;
+			break;
+		case(7): // 理综
+			maxScore = MaxScienceComprehensiveScore;
+			break;
+		case(8): // 文语
+			maxScore = MaxChineseScore;
+			break;
+		case(9): // 文数
+			maxScore = MaxMathScore;
+			break;
+		case(10): // 文英
+			maxScore = MaxEnglishScore;
+			break;
+		case(11): // 政治
+			maxScore = MaxPoliticsScore;
+			break;
+		case(12): // 历史
+			maxScore = MaxHistoryScore;
+			break;
+		case(13): // 地理
+			maxScore = MaxGeographyScore;
+			break;
+		case(14): // 文综
+			maxScore = MaxArtsComprehensiveScore;
+			break;
+		default:
+			break;
+		}
+		if (flag == 0) break;
+		cout << "请设置" << name[flag - 1] << "的一本线：" << endl;
+		firstBatch = Exam().inputInteger(0, maxScore);
+		cout << "请设置" << name[flag - 1] << "的本科线：" << endl;
+		secondBatch = Exam().inputInteger(0, firstBatch - 1);
+		Class[flag][1] = firstBatch;
+		Class[flag][3] = secondBatch;
+	}
+}
 
 void Excel6::getData(Csv csv, int Class[][5], string typeS)
 {
@@ -114,142 +210,120 @@ void Excel6::getData(Csv csv, int Class[][5], string typeS)
 			if (!typeS.compare("艺理")) flag = 3;
 			if (!typeS.compare("艺文")) flag = 4;
 
-			for (int i = 6; i <= 12; i++)
+			if (flag == 1 || flag == 3) // 理科
 			{
-				if (table[0][i].compare("总分") == 0) type = 0;
-				if (table[0][i].compare("语文") == 0) type = 1;
-				if (table[0][i].compare("理数") == 0) type = 2;
-				if (table[0][i].compare("文数") == 0) type = 3;
-				if (table[0][i].compare("英语") == 0) type = 4;
-				if (table[0][i].compare("物理") == 0) type = 5;
-				if (table[0][i].compare("化学") == 0) type = 6;
-				if (table[0][i].compare("生物") == 0) type = 7;
-				if (table[0][i].compare("理综") == 0) type = 8;
-				if (table[0][i].compare("政治") == 0) type = 9;
-				if (table[0][i].compare("历史") == 0) type = 10;
-				if (table[0][i].compare("地理") == 0) type = 11;
-				if (table[0][i].compare("文综") == 0) type = 12;
-
-				if (type == 0)
+				for (int i = 0; i <= 12; i++)
 				{
-					double score = 0.0;
-					for (int j = 1; (score = atof(table[j][i].c_str())) != 0.0; j++)
-						Class[0][flag]++;
-				}
+					if (table[0][i].compare("总分") == 0) type = 0;
+					if (table[0][i].compare("语文") == 0) type = 1;
+					if (table[0][i].compare("理数") == 0) type = 2;
+					if (table[0][i].compare("英语") == 0) type = 3;
+					if (table[0][i].compare("物理") == 0) type = 4;
+					if (table[0][i].compare("化学") == 0) type = 5;
+					if (table[0][i].compare("生物") == 0) type = 6;
 
-				if (type != -1 && type != 0)
-				{
-					double score = 0.0;
-					for (int j = 1; j <= Class[0][flag]; j++)
+					if (type == 0)
 					{
-						score = atof(table[j][i].c_str());
-						if (score != 0.0)
+						double score = 0.0;
+						for (int j = 1; (score = atof(table[j][i].c_str())) != 0.0; j++) // 可能存在bug
+							Class[0][flag]++;
+					}
+
+					if (type != -1 && type != 0)
+					{
+						double score = 0.0;
+						for (int j = 1; j <= Class[0][flag]; j++)
 						{
-							if (score >= 0.0) Class[type][0]++;
-							if (score >= (1.0 * Class[type][1])) Class[type][2]++;
-							if (score >= (1.0 * Class[type][3])) Class[type][4]++;
+							score = ceill(atof(table[i][6].c_str())); // 获取当前学生分数
+							if (score != 0.0)
+							{
+								if (score >= 0.0) Class[type][0]++;
+								if (score >= (1.0 * Class[type][1])) Class[type][2]++;
+								if (score >= (1.0 * Class[type][3])) Class[type][4]++;
+							}
 						}
 					}
-				}
 
-				if (type == 5 || type == 9) // 当检测到物理或政治时，计算理综或文综
-				{
-					double score = 0.0, score1 = 0.0, score2 = 0.0, score3 = 0.0;
-					for (int j = 1; j <= Class[0][flag]; j++)
+					if (type == 4) // 当检测到物理时，计算理综
 					{
-						score1 = atof(table[j][i].c_str()), // 获取物理或政治
-							score2 = atof(table[j][i + 1].c_str()), // 获取化学或地理
-							score3 = atof(table[j][i + 2].c_str()), // 获取生物或历史
-							score = score1 + score2 + score3; // 计算理综或文综
-						if (score != 0.0)
+						double score = 0.0, score1 = 0.0, score2 = 0.0, score3 = 0.0;
+						for (int j = 1; j <= Class[0][flag]; j++)
 						{
-							if (score >= 0.0) Class[type + 3][0]++;
-							if (score >= (1.0 * Class[type + 3][1])) Class[type + 3][2]++;
-							if (score >= (1.0 * Class[type + 3][3])) Class[type + 3][4]++;
+							score1 = atof(table[j][i].c_str()), // 获取物理
+							score2 = atof(table[j][i + 1].c_str()), // 获取化学
+							score3 = atof(table[j][i + 2].c_str()), // 获取生物
+							score = score1 + score2 + score3; // 计算理综
+							score = ceill(score); // 四舍五入
+							if (score != 0.0)
+							{
+								if (score >= 0.0) Class[type + 3][0]++;
+								if (score >= (1.0 * Class[type + 3][1])) Class[type + 3][2]++;
+								if (score >= (1.0 * Class[type + 3][3])) Class[type + 3][4]++;
+							}
 						}
 					}
+
+					type = -1; // 重置type
 				}
+			} // if
 
-				type = -1;
+			if (flag == 2 || flag == 4) // 文科
+			{
+				for (int i = 0; i <= 12; i++)
+				{
+					if (table[0][i].compare("总分") == 0) type = 0;
+					if (table[0][i].compare("语文") == 0) type = 8;
+					if (table[0][i].compare("文数") == 0) type = 9;
+					if (table[0][i].compare("英语") == 0) type = 10;
+					if (table[0][i].compare("政治") == 0) type = 11;
+					if (table[0][i].compare("历史") == 0) type = 12;
+					if (table[0][i].compare("地理") == 0) type = 13;
 
-			}
-		}
-	}
-}
+					if (type == 0)
+					{
+						double score = 0.0;
+						for (int j = 1; (score = atof(table[j][i].c_str())) != 0.0; j++) // 可能存在bug
+							Class[0][flag]++;
+					}
 
-void Excel6::setScoreBatch(int Class[][5])
-{
-	int flag = -1;
-	int maxScore = -1;
-	int firstBatch = 0;
-	int secondBatch = 0;
-	while (true)
-	{
-		Exam().clear();
-		vector<string> name = { "语文","理数","文数","英语","物理","化学","生物","理综","政治","历史","地理","文综" };
-		cout << "+--------------------------------------" << endl;
-		cout << "|选择数字设置对应科目的一本线和本科线" << endl;
-		cout << "+--------------------------------------" << endl;
-		for (int i = 1; i <= (int)name.size(); i++)
-		{
-			cout << "|";
-			printf("%2d", i);
-			cout << "|" << name[i - 1];
-			cout << "|一本线：";
-			printf("%3d", Class[i - 1][1]);
-			cout << "|本科线：";
-			printf("%3d", Class[i - 1][3]);
-			cout << endl;
+					if (type != -1 && type != 0)
+					{
+						double score = 0.0;
+						for (int j = 1; j <= Class[0][flag]; j++)
+						{
+							score = ceill(atof(table[i][6].c_str())); // 获取当前学生分数
+							if (score != 0.0)
+							{
+								if (score >= 0.0) Class[type][0]++;
+								if (score >= (1.0 * Class[type][1])) Class[type][2]++;
+								if (score >= (1.0 * Class[type][3])) Class[type][4]++;
+							}
+						}
+					}
+
+					if (type == 11) // 当检测到政治时，计算文综
+					{
+						double score = 0.0, score1 = 0.0, score2 = 0.0, score3 = 0.0;
+						for (int j = 1; j <= Class[0][flag]; j++)
+						{
+							score1 = atof(table[j][i].c_str()), // 获取政治
+							score2 = atof(table[j][i + 1].c_str()), // 获取地理
+							score3 = atof(table[j][i + 2].c_str()), // 获取历史
+							score = score1 + score2 + score3; // 计算文综
+							score = ceill(score); // 四舍五入
+							if (score != 0.0)
+							{
+								if (score >= 0.0) Class[type + 3][0]++;
+								if (score >= (1.0 * Class[type + 3][1])) Class[type + 3][2]++;
+								if (score >= (1.0 * Class[type + 3][3])) Class[type + 3][4]++;
+							}
+						}
+					}
+
+					type = -1; // 重置type
+				}
+			} // if
+
 		}
-		cout << "+--------------------------------------" << endl;
-		flag = Exam().inputInteger(0, 12);
-		switch (flag)
-		{
-		case(1):
-			maxScore = MaxChineseScore;
-			break;
-		case(2):
-			maxScore = MaxMathScore;
-			break;
-		case(3):
-			maxScore = MaxMathScore;
-			break;
-		case(4):
-			maxScore = MaxEnglishScore;
-			break;
-		case(5):
-			maxScore = MaxPhysicsScore;
-			break;
-		case(6):
-			maxScore = MaxChemistryScore;
-			break;
-		case(7):
-			maxScore = MaxBiologyScore;
-			break;
-		case(8):
-			maxScore = MaxScienceComprehensiveScore;
-			break;
-		case(9):
-			maxScore = MaxPoliticsScore;
-			break;
-		case(10):
-			maxScore = MaxHistoryScore;
-			break;
-		case(11):
-			maxScore = MaxGeographyScore;
-			break;
-		case(12):
-			maxScore = MaxArtsComprehensiveScore;
-			break;
-		default:
-			break;
-		}
-		if (flag == 0) break;
-		cout << "请设置" << name[flag - 1] << "的一本线：" << endl;
-		firstBatch = Exam().inputInteger(0, maxScore);
-		cout << "请设置" << name[flag - 1] << "的本科线：" << endl;
-		secondBatch = Exam().inputInteger(0, firstBatch - 1);
-		Class[0][2 * flag - 1] = firstBatch;
-		Class[0][2 * flag] = secondBatch;
 	}
 }

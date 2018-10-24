@@ -173,7 +173,7 @@ void Excel1::getData(const char * excelName, Csv &csv, string type, double frist
 			//cout << isNum(csv.table[i][6]) << csv.table[i][6].compare("") << endl;
 			for (i = 1; (Exam().isNum(table[i][6])); i++) // 当行第六列的数据为数字时
 			{
-				score = atof(table[i][6].c_str()); // 记录当前学生的总分
+				score = ceill(atof(table[i][6].c_str())); // 记录当前学生的总分
 				if (score >= fristBatch) fristStudent++; // 记录超过或等于一本线的学生人数
 				if (score >= secondBatch) secondStudent++; // 记录超过或等于本科线的学生人数
 				if (score >= 0) student++; // 记录参考学生人数

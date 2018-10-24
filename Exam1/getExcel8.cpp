@@ -216,7 +216,7 @@ void Excel8::getData(Csv csv, vector<vector<int>> &Class)
 				{
 					for (int j = 0; j < 7; j++)
 					{
-						score[j] = atof(table[i][j + 6].c_str()); // 获取当前学生分数
+						score[j] = ceill(atof(table[i][j + 6].c_str())); // 获取当前学生分数
 					}
 					score[7] = score[4] + score[5] + score[6]; // 计算学生文综成绩
 					if (score[0] >= 0) Class[classN][0]++; // 学生数据有效，则参考人数加一

@@ -164,7 +164,7 @@ void Excel2::getData(const char * excelName, Csv &csv, string type, vector<int> 
 		{
 			for (i = 1; (Exam().isNum(table[i][6])); i++) // 当行第六列的数据为数字时
 			{
-				score = atoi(table[i][6].c_str()); // 记录当前学生的总分
+				score = (int)ceill(atof(table[i][6].c_str())); // 记录当前学生的总分
 				scoreEvery[score]++;
 				student++;
 				score = -1; // 置回学生分数

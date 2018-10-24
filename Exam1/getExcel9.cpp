@@ -269,7 +269,7 @@ void Excel9::getData(Csv csv, vector<vector<int>> &Class, vector<double> scoreSe
 					if (typeS.compare("理综") == 0 || typeS.compare("文综") == 0)
 						score = atof(table[i][typeN].c_str()) + atof(table[i][typeN + 1].c_str()) + atof(table[i][typeN + 2].c_str());
 					else 
-						score = atof(table[i][typeN].c_str()); // 获取当前学生分数
+						score = ceill(atof(table[i][typeN].c_str())); // 获取当前学生分数
 					if (score > 0.0)
 					{
 						Class[classN][0]++; // 学生数据有效，则参考人数加一

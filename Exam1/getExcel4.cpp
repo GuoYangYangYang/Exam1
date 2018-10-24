@@ -181,7 +181,7 @@ void Excel4::getData(Csv csv, vector<vector<int>> &Class, string gradeS, vector<
 					{
 						if (!table[i][3].compare("理科")) Class[classN - 1][0] = 1; // 理科置为1
 						else Class[classN - 1][0] = 0; // 文科置为false
-						score = atoi(table[i][6].c_str()); // 获取当前学生分数
+						score = (int)ceill(atoi(table[i][6].c_str())); // 获取当前学生分数
 						if (score >= 0) Class[classN - 1][1]++; // 学生数据有效，则参考人数加一
 						int section = findScoreSection(scoreSection, score);
 						if (section != -1) Class[classN - 1][section + 2]++;

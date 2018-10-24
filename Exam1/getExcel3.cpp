@@ -216,7 +216,7 @@ void Excel3::getData(Csv csv, vector<ClassData> &Class, string gradeS, double fr
 				{
 					if (!table[i][3].compare("理科")) Class[classN - 1].SorA = true; // 理科置为true
 					else Class[classN - 1].SorA = false; // 文科置为false
-					score = atoi(table[i][6].c_str()); // 获取当前学生分数
+					score = (int)ceill(atoi(table[i][6].c_str())); // 获取当前学生分数
 					if (score >= 0) Class[classN - 1].allNumber++; // 学生数据有效，则参考人数加一
 					if (score >= secondBatch) Class[classN - 1].secondNumber++; // 成绩达到本科线，则本科人数加一
 					if (score >= fristBatch) Class[classN - 1].fristNumber++; // 成绩达到一本线，则一本人数加一

@@ -177,7 +177,7 @@ void Excel5::getData1(Csv csv, vector<vector<int>> &Class1, vector<vector<double
 					if (!typeS.compare("艺文")) type = 3;
 					if (!table[i][3].compare("理科")) Class1[classN][0] = 1; // 理科置为1
 					else Class1[classN][0] = 0; // 文科置为false
-					score = atoi(table[i][6].c_str()); // 获取当前学生分数
+					score = (int)ceill(atof(table[i][6].c_str())); // 获取当前学生分数
 					if (score >= 0) // 学生数据有效，则参考人数加一
 					{
 						Class1[type][1]++;
@@ -214,7 +214,7 @@ void Excel5::getData2(Csv csv, vector<vector<int>> &Class1, vector<vector<double
 					if (!typeS.compare("文科")) type = 1;
 					if (!typeS.compare("艺理")) type = 2;
 					if (!typeS.compare("艺文")) type = 3;
-					score = atoi(table[i][6].c_str()); // 获取当前学生分数
+					score = (int)ceill(atof(table[i][6].c_str())); // 获取当前学生分数
 					if (score >= 0) // 学生数据有效，则参考人数加一
 					{
 						Class2[type][1] += (1.0 * score - Class2[type][0]) * (1.0 * score - Class2[type][0]);

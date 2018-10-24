@@ -128,7 +128,7 @@ string Exam::chooseCreate()
 		cout << "创建文件出错！" << endl;
 		return "ERROR";
 	}
-	file1 << "考号,姓名,学号,科类,班级,性质,总分,语文,理数,英语,物理,化学,生物," << endl;
+	file1 << "考号,姓名,学号,科类,班级,性质,总分,语文,理数,英语,物理,化学,生物,备注" << endl;
 	file1.close();
 
 	file2.open(dirName + "\\文科总成绩.csv", std::ios::out | std::ios::app);
@@ -137,7 +137,7 @@ string Exam::chooseCreate()
 		cout << "创建文件出错！" << endl;
 		return "ERROR";
 	}
-	file2 << "考号,姓名,学号,科类,班级,性质,总分,语文,文数,英语,政治,历史,地理," << endl;
+	file2 << "考号,姓名,学号,科类,班级,性质,总分,语文,文数,英语,政治,历史,地理,备注" << endl;
 	file2.close();
 
 	file3.open(dirName + "\\艺理总成绩.csv", std::ios::out | std::ios::app);
@@ -146,7 +146,7 @@ string Exam::chooseCreate()
 		cout << "创建文件出错！" << endl;
 		return "ERROR";
 	}
-	file3 << "考号,姓名,学号,科类,班级,性质,总分,语文,理数,英语,物理,化学,生物," << endl;
+	file3 << "考号,姓名,学号,科类,班级,性质,总分,语文,理数,英语,物理,化学,生物,备注" << endl;
 	file3.close();
 
 	file4.open(dirName + "\\艺文总成绩.csv", std::ios::out | std::ios::app);
@@ -155,7 +155,7 @@ string Exam::chooseCreate()
 		cout << "创建文件出错！" << endl;
 		return "ERROR";
 	}
-	file4 << "考号,姓名,学号,科类,班级,性质,总分,语文,文数,英语,政治,历史,地理," << endl;
+	file4 << "考号,姓名,学号,科类,班级,性质,总分,语文,文数,英语,政治,历史,地理,备注" << endl;
 	file4.close();
 
 	Exam().clear();
